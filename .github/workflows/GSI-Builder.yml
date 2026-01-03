@@ -11,10 +11,6 @@ on:
         description: 'Link to the ROM file'
         required: true
         default: 'https://dl.google.com/dl/android/aosp/barbet-sp1a.210812.015-factory-13f4d9f2.zip'
-      rom_type_option:
-        description: 'Type of GSI (AB or A-only)'
-        required: true
-        default: 'AB'
 
 jobs:
   Build_GSI:
@@ -29,24 +25,19 @@ jobs:
 
       - name: Clone FoxetGSI-tool
         run: |
-          git clone --recurse-submodules https://github.com/FoxetGSI/FoxetGSI-tool.git
+          git clone --recurse-submodules https://github.com/MaddIsHere/FoxetGSITool.git
       - name: Install dependencies
         run: |
-          cd FoxetGSI-tool
-          sudo bash setup.sh
-          sudo apt-get install -y p7zip-full
+          cd FoxetGSITool
+          sudo apt install unace unrar zip unzip p7zip-full p7zip-rar sharutils rar uudeview mpack arj cabextract rename liblzma-dev python3-pip brotli lz4 protobuf-compiler git gawk aria2
       - name: Build GSI
         env:
           ROM_TYPE: ${{ github.event.inputs.rom_type }}
           ROM_LINK: ${{ github.event.inputs.rom_link }}
           ROM_TYPE_OPTION: ${{ github.event.inputs.rom_type_option }}
         run: |
-          cd FoxetGSI-tool
-          if [ "$ROM_TYPE_OPTION" = "AB" ]; then
-            sudo bash url2GSI.sh "$ROM_LINK" "$ROM_TYPE" --ab
-          else
-            sudo bash url2GSI.sh "$ROM_LINK" "$ROM_TYPE" --aonly
-          fi
+          cd FoxetGSITool
+            sudo bash LinkToGSI.sh "$ROM_LINK" "$ROM_TYPE"
       - name: Prepare artifacts directory
         run: |
           mkdir -p $GITHUB_WORKSPACE/artifacts
@@ -54,7 +45,7 @@ jobs:
       - name: Process and Package Files
         id: package
         run: |
-          cd $GITHUB_WORKSPACE/FoxetGSI-tool/output || exit 1
+          cd $GITHUB_WORKSPACE/FoxetGSITool/Output || exit 1
           if [ $(ls -1 *.img 2>/dev/null | wc -l) -eq 0 ]; then
             echo "::error::No .img files found!"
             exit 1
