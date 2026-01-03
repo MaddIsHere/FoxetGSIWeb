@@ -38,6 +38,7 @@ jobs:
         run: |
           cd FoxetGSITool
             sudo bash LinkToGSI.sh "$ROM_LINK" "$ROM_TYPE"
+            ls
       - name: Prepare artifacts directory
         run: |
           mkdir -p $GITHUB_WORKSPACE/artifacts
