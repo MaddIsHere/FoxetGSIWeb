@@ -29,7 +29,8 @@ jobs:
       - name: Install dependencies
         run: |
           cd FoxetGSITool
-          sudo apt install unace unrar zip unzip p7zip-full p7zip-rar sharutils rar uudeview mpack arj cabextract rename liblzma-dev python3-pip brotli lz4 protobuf-compiler git gawk aria2
+          sudo apt update
+          sudo apt install unace unrar zip unzip p7zip-full p7zip-rar sharutils rar uudeview mpack arj cabextract rename liblzma-dev python3-pip brotli lz4 protobuf-compiler git gawk aria2 kpartx losetup e2fsprogs qemu-utils simg2img fuse-exfat exfat-utils
       - name: Build GSI
         env:
           ROM_TYPE: ${{ github.event.inputs.rom_type }}
