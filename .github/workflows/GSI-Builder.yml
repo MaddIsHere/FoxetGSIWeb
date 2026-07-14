@@ -47,6 +47,7 @@ jobs:
         id: package
         run: |
           cd $GITHUB_WORKSPACE/FoxetGSITool/Output || exit 1
+          ls
           if [ $(ls -1 *.img 2>/dev/null | wc -l) -eq 0 ]; then
             echo "::error::No .img files found!"
             exit 1
