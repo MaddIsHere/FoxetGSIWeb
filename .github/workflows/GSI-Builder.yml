@@ -73,7 +73,7 @@ jobs:
             fi
           done
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.package.outputs.tag_name }}
           name: ${{ steps.package.outputs.release_name }}
