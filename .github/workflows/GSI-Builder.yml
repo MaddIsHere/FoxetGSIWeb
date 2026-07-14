@@ -61,11 +61,16 @@ jobs:
             exit 1
           fi
           timestamp=$(date +'%d.%m.%y_%H.%M')
-          base_name="${img_file%.img}"
-            7z a -mx=0 -mmt=on "$GITHUB_WORKSPACE/artifacts/${base_name}.7z" "$GITHUB_WORKSPACE/FoxetGSITool/Output/${img_file}"
-            echo "release_name=${base_name}_${timestamp}" >> $GITHUB_OUTPUT
-            echo "tag_name=${base_name}-${timestamp}" >> $GITHUB_OUTPUT
-            echo "file_name=${base_name}.7z" >> $GITHUB_OUTPUT
+          for img_file in *.img; do
+            if [ -e "$img_file" ]; then
+              base_name="${img_file%.img}"
+              
+              7z a -mx=1 -mmt=on "$GITHUB_WORKSPACE/artifacts/${base_name}.7z" "$GITHUB_WORKSPACE/FoxetGSITool/Output/${img_file}"
+              
+              echo "release_name=${base_name}_${timestamp}" >> $GITHUB_OUTPUT
+              echo "tag_name=${base_name}-${timestamp}" >> $GITHUB_OUTPUT
+              echo "file_name=${base_name}.7z" >> $GITHUB_OUTPUT
+            fi
           done
       - name: Create Release
         uses: softprops/action-gh-release@v1
