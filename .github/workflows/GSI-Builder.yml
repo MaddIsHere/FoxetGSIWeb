@@ -53,29 +53,19 @@ jobs:
             exit 1
           fi
           timestamp=$(date +'%d.%m.%y_%H.%M')
-          for img_file in *.img; do
-            base_name="${img_file%.img}"
-            txt_file="${base_name}.txt"
-            if [ ! -f "$txt_file" ]; then
-              echo "::warning::No ${txt_file} found for ${img_file}"
-              continue
-            fi
-            cp "$txt_file" "$GITHUB_WORKSPACE/artifacts/"
+          base_name="${img_file%.img}"
             7z a -mmt=on "$GITHUB_WORKSPACE/artifacts/${base_name}.7z" "$img_file"
             echo "release_name=${base_name}_${timestamp}" >> $GITHUB_OUTPUT
             echo "tag_name=${base_name}-${timestamp}" >> $GITHUB_OUTPUT
             echo "file_name=${base_name}.7z" >> $GITHUB_OUTPUT
-            echo "txt_file=${txt_file}" >> $GITHUB_OUTPUT
           done
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ steps.package.outputs.tag_name }}
           name: ${{ steps.package.outputs.release_name }}
-          body_path: ${{ format('artifacts/{0}', steps.package.outputs.txt_file) }}
           files: |
             ${{ github.workspace }}/artifacts/${{ steps.package.outputs.file_name }}
-            ${{ github.workspace }}/artifacts/${{ steps.package.outputs.txt_file }}
           draft: false
           prerelease: false
         env:
