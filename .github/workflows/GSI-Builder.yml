@@ -30,7 +30,7 @@ jobs:
         run: |
           cd FoxetGSITool
           sudo apt update
-          sudo apt install unace unrar zip unzip p7zip-full p7zip-rar sharutils rar uudeview mpack arj cabextract rename liblzma-dev python3-pip brotli lz4 protobuf-compiler git gawk aria2 kpartx losetup e2fsprogs qemu-utils android-sdk-libsparse-utils fuse-exfat exfatprogs
+          sudo apt install unace unrar zip unzip p7zip-full p7zip-rar sharutils rar uudeview mpack arj cabextract rename liblzma-dev python3-pip brotli lz4 protobuf-compiler git gawk aria2 kpartx e2fsprogs qemu-utils android-sdk-libsparse-utils exfatprogs
       - name: Build GSI
         env:
           ROM_TYPE: ${{ github.event.inputs.rom_type }}
