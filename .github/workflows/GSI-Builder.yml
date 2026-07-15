@@ -68,7 +68,7 @@ jobs:
               7z a -mx=5 -mmt=on "$GITHUB_WORKSPACE/artifacts/${base_name}.7z" "$GITHUB_WORKSPACE/FoxetGSITool/Output/${img_file}"
               
               echo "release_name=${base_name}_${timestamp}" >> $GITHUB_OUTPUT
-              echo "tag_name=${base_name}-${timestamp}" >> $GITHUB_OUTPUT
+              echo "tag_name=${rom_type}-${timestamp}" >> $GITHUB_OUTPUT
               echo "file_name=${base_name}.7z" >> $GITHUB_OUTPUT
             fi
           done
