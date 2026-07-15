@@ -3,5 +3,16 @@
 ## How to use :
 1. Fork this repo
 2. Go to Actions/FoxetGSI-builder
-3. Click to Run Workflow and fill in all fields ROM type (MIUI,Generic,Pixel,Flyme and other), Link to the ROM file
-4. After 10-15 mins go to Realease page you found your gsi here (compressed .7z GSI file)
+
+## Run workflow:
+1. Enter type of rom(e.g., Pixel). List of all available types:
+ - FlymeOS
+ - Generic
+ - HyperOS
+ - OxygenOS
+ - Pixel
+ - ZenUI
+2. Enter link to the rom file
+
+## Releases: 
+After 10-15 mins go to Release page you found your gsi here (compressed .7z GSI file)
